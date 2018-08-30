@@ -70,11 +70,11 @@ public class ConnMessengerController {
 					if (eventData != null && eventData.containsKey("text")) {
 						String userInput = eventData.get("text").toString();
 						fromText += "我已收到您的訊息「" + userInput + "」";
-						userInput = userInput.toLowerCase();
+						userInput = userInput.toLowerCase().trim();
 						if(city.containsKey(userInput)){
 							JSONObject weather = MessengerActions.weatherInfo((city.get(userInput)));
 							fromText += "\r\nTemperature : " + weather.getJSONObject("main").get("temp");
-							fromText += "\r\nDescription : " + weather.getJSONArray("weather").getJSONObject(0).get("description");
+							fromText += "°C\r\nDescription : " + weather.getJSONArray("weather").getJSONObject(0).get("description");
 							MessengerActions.pushToMessenger(PAGE_TOKEN, messengerUUID, MessengerActions.imageToReplyMessage(weather.getJSONArray("weather").getJSONObject(0).getString(("icon"))));
 							System.out.println(weather);
 						} else {

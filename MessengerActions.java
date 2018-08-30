@@ -142,7 +142,7 @@ public class MessengerActions {
 		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 		JSONObject result = null;
 		try {
-			HttpGet request = new HttpGet("https://api.openweathermap.org/data/2.5/forecast?id=" + cityId + "&APPID="
+			HttpGet request = new HttpGet("https://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID="
 					+ APPID + "&units=metric");
 			result = getRequest(httpClient, request);
 			if (result.getString("cod").equals("200"))
