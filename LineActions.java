@@ -110,7 +110,30 @@ public class LineActions {
 		try {
 			msgObj.put("type", "sticker");
 			msgObj.put("packageId", "2");
-			msgObj.put("stickerId", (new Random().nextInt(27) + 501) );
+			msgObj.put("stickerId", (new Random().nextInt(27) + 501));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msgObj;
+	}
+
+	public static JSONObject weatherInfoToFlexMessage(JSONObject weather) {
+		JSONObject msgObj = new JSONObject();
+		try {
+			JSONObject contents = new JSONObject();
+			contents.put("type", "bubble");
+			contents.put("hero", new JSONObject().put("type", "image").put("url", "https://openweathermap.org/img/w/"
+					+ weather.getJSONArray("weather").getJSONObject(0).getString(("icon")) + ".png"));
+			contents.put("body",
+					new JSONObject(
+							"{\"type\":\"box\",\"layout\":\"vertical\",\"contents\":[{\"type\":\"text\",\"text\":\"Temperature:"
+									+ weather.getJSONObject("main").get("temp")
+									+ "°C\"},{\"type\":\"text\",\"text\":\"Description:"
+									+ weather.getJSONArray("weather").getJSONObject(0).get("description") + "\"}]}"));
+			contents.put("styles", new JSONObject("{\"hero\":{\"backgroundColor\":\"#ecffff\"}}"));
+			msgObj.put("type", "flex");
+			msgObj.put("altText", "this is a flex message");
+			msgObj.put("contents", contents);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

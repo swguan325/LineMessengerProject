@@ -88,9 +88,10 @@ public class ConnLineController {
 							userInput = userInput.toLowerCase().trim();
 							if(CITY.containsKey(userInput)){
 								JSONObject weather = MessengerActions.weatherInfo((CITY.get(userInput)));
-								fromText += "\r\nTemperature : " + weather.getJSONObject("main").get("temp");
-								fromText += "°C\r\nDescription : " + weather.getJSONArray("weather").getJSONObject(0).get("description");
+								//fromText += "\r\nTemperature : " + weather.getJSONObject("main").get("temp");
+								//fromText += "°C\r\nDescription : " + weather.getJSONArray("weather").getJSONObject(0).get("description");
 								System.out.println(weather);
+								messages.add(0, LineActions.weatherInfoToFlexMessage(weather));
 							} else {
 								fromText += "\r\n不好意思沒找到相關城市訊息";
 							}
